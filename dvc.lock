@@ -1,0 +1,50 @@
+schema: '2.0'
+stages:
+  train:
+    cmd: python ml/training/train.py
+    deps:
+    - path: ml/training/tickets.csv
+      hash: md5
+      md5: 9345aa148d55b8031007f37af3b0fbfc
+      size: 10693
+    - path: ml/training/train.py
+      hash: md5
+      md5: fdece49683d051a2e6e9302b95fc26c1
+      size: 1456
+    outs:
+    - path: ml/models/category_model.pkl
+      hash: md5
+      md5: df1aa6f56da090a632c05e0754e468f3
+      size: 3057
+    - path: ml/models/urgency_model.pkl
+      hash: md5
+      md5: 1bd7ed1e2df01cbc3bb8599edb2d9ba5
+      size: 3041
+  evaluate:
+    cmd: python ml/training/evaluate.py
+    deps:
+    - path: ml/models/category_model.pkl
+      hash: md5
+      md5: df1aa6f56da090a632c05e0754e468f3
+      size: 3057
+    - path: ml/models/urgency_model.pkl
+      hash: md5
+      md5: 1bd7ed1e2df01cbc3bb8599edb2d9ba5
+      size: 3041
+    - path: ml/training/evaluate.py
+      hash: md5
+      md5: dab7b507dbef5d41a79000fc7fa8de2b
+      size: 1660
+    - path: ml/training/tickets.csv
+      hash: md5
+      md5: 9345aa148d55b8031007f37af3b0fbfc
+      size: 10693
+    outs:
+    - path: ml/models/eval_report.txt
+      hash: md5
+      md5: 16571244a78008eca902efbd2035ccac
+      size: 795
+    - path: ml/models/metrics.json
+      hash: md5
+      md5: 45d7ced43d67df1d327ba974fa4b5a47
+      size: 57

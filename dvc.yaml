@@ -1,0 +1,20 @@
+stages:
+  train:
+    cmd: python ml/training/train.py
+    deps:
+    - ml/training/tickets.csv
+    - ml/training/train.py
+    outs:
+    - ml/models/category_model.pkl
+    - ml/models/urgency_model.pkl
+  evaluate:
+    cmd: python ml/training/evaluate.py
+    deps:
+    - ml/models/category_model.pkl
+    - ml/models/urgency_model.pkl
+    - ml/training/evaluate.py
+    - ml/training/tickets.csv
+    outs:
+    - ml/models/eval_report.txt
+    metrics:
+    - ml/models/metrics.json
