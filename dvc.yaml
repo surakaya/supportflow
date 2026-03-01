@@ -6,6 +6,7 @@ stages:
     - ml/training/train.py
     outs:
     - ml/models/category_model.pkl
+    - ml/models/model_metadata.json
     - ml/models/urgency_model.pkl
   evaluate:
     cmd: python ml/training/evaluate.py

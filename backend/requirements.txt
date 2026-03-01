@@ -3,3 +3,7 @@ uvicorn
 sqlalchemy
 pymysql
 python-dotenv
+joblib
+scikit-learn
+redis
+mysql-connector-python

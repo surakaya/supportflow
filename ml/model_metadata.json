@@ -1,0 +1,9 @@
+{
+    "model_type": "LogisticRegression",
+    "train_size": 0.8,
+    "test_size": 0.2,
+    "random_seed": 42,
+    "features": 12,
+    "accuracy": 0.87
+  }
+  

@@ -5,46 +5,50 @@ stages:
     deps:
     - path: ml/training/tickets.csv
       hash: md5
-      md5: 9345aa148d55b8031007f37af3b0fbfc
-      size: 10693
+      md5: 71cc9465d6b73c6af623fe0aa4520f6d
+      size: 231815
     - path: ml/training/train.py
       hash: md5
-      md5: fdece49683d051a2e6e9302b95fc26c1
-      size: 1456
+      md5: 621e4331a085631d302e35f47114312a
+      size: 3396
     outs:
     - path: ml/models/category_model.pkl
       hash: md5
-      md5: df1aa6f56da090a632c05e0754e468f3
-      size: 3057
+      md5: f9735d8824d456c4bd350849f2ec0a6e
+      size: 16692
+    - path: ml/models/model_metadata.json
+      hash: md5
+      md5: db083c4e99927b00706fbf6a25e648a8
+      size: 219
     - path: ml/models/urgency_model.pkl
       hash: md5
-      md5: 1bd7ed1e2df01cbc3bb8599edb2d9ba5
-      size: 3041
+      md5: fee56949cf5de0e6efb2f7306466dc59
+      size: 16692
   evaluate:
     cmd: python ml/training/evaluate.py
     deps:
     - path: ml/models/category_model.pkl
       hash: md5
-      md5: df1aa6f56da090a632c05e0754e468f3
-      size: 3057
+      md5: f9735d8824d456c4bd350849f2ec0a6e
+      size: 16692
     - path: ml/models/urgency_model.pkl
       hash: md5
-      md5: 1bd7ed1e2df01cbc3bb8599edb2d9ba5
-      size: 3041
+      md5: fee56949cf5de0e6efb2f7306466dc59
+      size: 16692
     - path: ml/training/evaluate.py
       hash: md5
-      md5: dab7b507dbef5d41a79000fc7fa8de2b
-      size: 1660
+      md5: a8eef746dc5f571e5ca91b275f2d337c
+      size: 5249
     - path: ml/training/tickets.csv
       hash: md5
-      md5: 9345aa148d55b8031007f37af3b0fbfc
-      size: 10693
+      md5: 71cc9465d6b73c6af623fe0aa4520f6d
+      size: 231815
     outs:
     - path: ml/models/eval_report.txt
       hash: md5
-      md5: 16571244a78008eca902efbd2035ccac
+      md5: 5259b9aa45d685f4f0d5fe4acc98f0db
       size: 795
     - path: ml/models/metrics.json
       hash: md5
-      md5: 45d7ced43d67df1d327ba974fa4b5a47
-      size: 57
+      md5: 7f273f6cc031e44fb57796d939833a68
+      size: 817

@@ -3,6 +3,7 @@ import os
 import mysql.connector
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()  # Load env before importing modules that read DB settings.
 
@@ -10,6 +11,20 @@ from src.routes.analyze import router as analyze_router
 from src.routes.tickets import router as tickets_router
 
 app = FastAPI()
+
+raw_origins = os.getenv("CORS_ALLOW_ORIGINS", "*")
+allow_origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
+if not allow_origins:
+    allow_origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allow_origins,
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(analyze_router, prefix="/analyze", tags=["analyze"])
 app.include_router(tickets_router, prefix="/tickets", tags=["tickets"])
 

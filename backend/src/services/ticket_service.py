@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from src.models.ticket import Ticket
 from src.schemas.ticket import AnalyzeRequest, AnalyzeResponse
 from src.services.ml_service import analyze_text
-from src.services.priority_service import urgency_to_priority
+from src.services.priority_service import calculate_priority, normalize_urgency
 
 
 def create_ticket(
@@ -33,10 +33,13 @@ def create_ticket(
         raise ValueError("message is required")
 
     result = analyze_text(message)
-    urgency = result.get("urgency")
-    priority = result.get("priority")
-    if priority is None:
-        priority = urgency_to_priority(urgency)
+    urgency = normalize_urgency(result.get("urgency"))
+    priority = calculate_priority(
+        category=result.get("category"),
+        urgency=urgency,
+        confidence=result.get("confidence"),
+        ml_priority=result.get("priority"),
+    )
 
     ticket = Ticket(
         company_id=company_id,

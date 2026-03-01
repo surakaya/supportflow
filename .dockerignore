@@ -1,0 +1,15 @@
+.git
+.gitignore
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.log
+.venv
+venv
+node_modules
+frontend/node_modules
+frontend/dist
+.dvc/cache
+.dvc/tmp
+.DS_Store

@@ -1,4 +1,5 @@
-/metrics.json
-/eval_report.txt
 /category_model.pkl
 /urgency_model.pkl
+/model_metadata.json
+/eval_report.txt
+/metrics.json

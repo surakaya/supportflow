@@ -1,0 +1,62 @@
+services:
+  db:
+    build:
+      context: ..
+      dockerfile: docker/db/Dockerfile
+    container_name: supportflow-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: supportflow
+      MYSQL_USER: supportflow
+      MYSQL_PASSWORD: supportflow
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: supportflow-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/backend/Dockerfile
+    container_name: supportflow-backend
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: supportflow
+      DB_USER: supportflow
+      DB_PASSWORD: supportflow
+      REDIS_URL: redis://redis:6379/0
+      RATE_LIMIT_PER_MINUTE: 20
+      RATE_LIMIT_WINDOW_SECONDS: 60
+      CORS_ALLOW_ORIGINS: "*"
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/frontend/Dockerfile
+    container_name: supportflow-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
