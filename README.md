@@ -15,11 +15,11 @@ SupportFlow, gelen müşteri mesajlarını aşağıdaki kriterlere göre sınıf
 
 ## 1) Proje Yapısı
 
-- `/Users/sura/Desktop/masaustu/supportflow/backend` -> API, iş mantığı, veritabanı erişimi
-- `/Users/sura/Desktop/masaustu/supportflow/frontend` -> widget arayüzü (müşteri + admin modu)
-- `/Users/sura/Desktop/masaustu/supportflow/ml` -> eğitim/değerlendirme/çıkarım dosyaları
-- `/Users/sura/Desktop/masaustu/supportflow/db` -> şema + başlangıç (seed) SQL'i
-- `/Users/sura/Desktop/masaustu/supportflow/docker` -> container yapılandırması
+- `supportflow/backend` -> API, iş mantığı, veritabanı erişimi
+- `supportflow/frontend` -> widget arayüzü (müşteri + admin modu)
+- `supportflow/ml` -> eğitim/değerlendirme/çıkarım dosyaları
+- `supportflow/db` -> şema + başlangıç (seed) SQL'i
+- `supportflow/docker` -> container yapılandırması
 
 ## 2) Temel Akış
 
@@ -35,7 +35,7 @@ SupportFlow, gelen müşteri mesajlarını aşağıdaki kriterlere göre sınıf
 ### Backend
 
 ```bash
-cd /Users/sura/Desktop/masaustu/supportflow/backend
+cd supportflow/backend
 pip install -r requirements.txt
 PYTHONPATH=. uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 ```
@@ -43,7 +43,7 @@ PYTHONPATH=. uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 ### Frontend
 
 ```bash
-cd /Users/sura/Desktop/masaustu/supportflow/frontend
+cd supportflow/frontend
 npm install
 npm run dev -- --host
 ```
@@ -55,7 +55,7 @@ Açın:
 ## 4) Docker ile Çalıştırma
 
 ```bash
-cd /Users/sura/Desktop/masaustu/supportflow/docker
+cd supportflow/docker
 docker compose up -d --build
 docker compose ps
 ```
@@ -92,21 +92,21 @@ curl -X GET "http://127.0.0.1:8000/tickets/" \
 Modelleri ve metrikleri yeniden oluşturun:
 
 ```bash
-cd /Users/sura/Desktop/masaustu/supportflow
+cd supportflow
 dvc repro --force
 dvc metrics show
 ```
 
 İzlenen çıktılar:
-- `/Users/sura/Desktop/masaustu/supportflow/ml/models/category_model.pkl`
-- `/Users/sura/Desktop/masaustu/supportflow/ml/models/urgency_model.pkl`
-- `/Users/sura/Desktop/masaustu/supportflow/ml/models/model_metadata.json`
-- `/Users/sura/Desktop/masaustu/supportflow/ml/models/metrics.json`
-- `/Users/sura/Desktop/masaustu/supportflow/ml/models/eval_report.txt`
+- `supportflow/ml/models/category_model.pkl`
+- `supportflow/ml/models/urgency_model.pkl`
+- `supportflow/ml/models/model_metadata.json`
+- `supportflow/ml/models/metrics.json`
+- `supportflow/ml/models/eval_report.txt`
 
 ## 7) Çevresel Değişkenler (Backend)
 
-`/Users/sura/Desktop/masaustu/supportflow/backend/.env` dosyasını kullanın:
+`supportflow/backend/.env` dosyasını kullanın:
 
 ```env
 DB_HOST=localhost
